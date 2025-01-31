@@ -1,8 +1,9 @@
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
-  Scripts,
+  redirect,
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
@@ -22,6 +23,14 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const loader = async () => {
+  const response  = {data: 1};
+  if (response.data === 0) {
+    return redirect('/register');
+  }
+  return response
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -34,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
-        <Scripts />
+        <LiveReload />
       </body>
     </html>
   );

@@ -1,0 +1,93 @@
+1. Buatlah database dengan struktur seperti
+
+accounts
+	- id (auto increment)
+	- username (varchar)
+	- password (varchar) # encrypted by AES
+
+	Example:
+	1 | super.admin | ---somehash---
+
+persons
+	- id
+	- name
+	- phone
+	- email
+
+	Example:
+	1 | Eminem 		| 089510200102 | eminem@thegoat.com
+	2 | Sun Wukong 	| 089522114433 | blackmyth@wukong.com
+
+hobbies
+	- id
+	- name
+	- person_id
+
+	Example:
+	1 | Rap 			| 1
+	2 | Dissing People 	| 1
+	3 | Seeing Daughter | 1
+	4 | Trash Talk		| 2
+
+favorite_characters
+	- id
+	- origin
+	- name
+	- person_id
+
+	Example:
+	1 | DC 				| Batman 			| 1
+	2 | DC 				| The Flash 		| 2
+	3 | Marvel 			| Captain America 	| 2
+	4 | Solo Levelling 	| Sung Jing Woo 	| 1
+
+
+Keterangan:
+1. Ketika membuka web, ketika accounts masih kosong maka redirect ke halaman register account
+
+2. Di web ini hanya ada menu (sidebar) halaman "Person" saja
+	- Sediakan halaman index yang akan nge-list semua person dalam bentuk tabel
+	- Action di tabel "Person", ada : Delete, Edit, Show Hobbies, Show Fave Chars
+
+3. Halaman Hobbies:
+	- Sediakan halaman index yang akan nge-list hobbies dari person yang dipilih di step 2
+	- Ada tombol "Add", "Remove" dan "Edit"
+
+
+	- Format yang disubmit dari form berupa array of string, bisa lebih dari 1 hobi dalam sekali submit
+	{
+		...
+		hobbies : ["", "", "", ""]
+	}
+
+4. Halaman Fave Chars:
+	- Sediakan halaman index yang akan nge-list favorite characters dari person yang dipilih di step 2
+	- Ada tombol "Add", "Remove" dan "Edit"
+
+	- Format yang disubmit dari form berupa array of objects, bisa lebih dari 1 fave chars dalam sekali submit
+	{
+		...
+		favorite_characters : [
+			{
+				origin : "DC",
+				name : "Batman"
+			},
+			{
+				origin : "Marvel",
+				name : "Iron Man"
+			},
+
+		]
+	}
+
+
+5. Buatlah backend menggunakan NestJS dan PrismaORM yang menyediakan fungsi CRUDS untuk tabel diatas
+
+6. Untuk Remix:
+	- Tidak boleh menggunakan useState, signal ataupun state management lainnya.
+   	- Harus menggunakan "ReactHookForm" untuk management form baik itu array, object ataupun array of object.
+
+Extra points:
+- Jika ada fitur upload photo untuk person
+- Jika implement layouting, boleh nambah page dummy extra buat show layout inheritance
+- Jika implement authentication guard, tidak bisa akses halaman jika tidak login
