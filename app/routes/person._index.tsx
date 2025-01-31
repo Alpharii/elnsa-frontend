@@ -6,8 +6,9 @@ export async function loader() {
       { id: 1, name: "John Doe" },
       { id: 2, name: "Jane Doe" },
       { id: 3, name: "Bob Smith" },
-  ]}
-  return persons
+    ],
+  };
+  return persons;
 }
 
 export default function PersonIndex() {
@@ -16,6 +17,11 @@ export default function PersonIndex() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Person List</h1>
+      
+      <Link to="/person/create" className="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
+        Create Person
+      </Link>
+
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-200 text-slate-700">

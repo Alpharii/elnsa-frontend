@@ -6,7 +6,8 @@ import {
   redirect,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { parse } from "cookie"; 
 
 import "./tailwind.css";
 
@@ -23,12 +24,22 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const loader = async () => {
-  const response  = {data: 1};
-  if (response.data === 0) {
-    return redirect('/register');
+export const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(request.url);
+  const cookieHeader = request.headers.get("Cookie");
+  const cookies = parse(cookieHeader || ""); 
+
+  if (!cookies.token) {
+    if (url.pathname !== "/auth/login" && url.pathname !== "/auth/register") {
+      return redirect("/auth/login"); // Hanya redirect ke login jika belum ada token
+    }
+  } else {
+    if (url.pathname === "/") {
+      return redirect("/person"); // Hanya redirect ke /person jika di root
+    }
   }
-  return response
+
+  return null; // Biarkan user tetap di halaman jika tidak perlu redirect
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
