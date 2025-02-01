@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Form, useActionData, redirect, Link } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { ActionFunction, json } from "@remix-run/node";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 
-export async function action({ request }) {
+export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const username = formData.get("username");
   const password = formData.get("password");
