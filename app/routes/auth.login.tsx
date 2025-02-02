@@ -1,9 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Form, useActionData, redirect, Link } from "@remix-run/react";
 import { ActionFunction, json } from "@remix-run/node";
-import axios from "axios";
+import axios from 'axios'
 import Swal from "sweetalert2";
 import { useEffect } from "react";
+
+interface ActionData {
+  error?: string;
+}
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -24,7 +28,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     return redirect("/person", {
       headers: {
-        "Set-Cookie": `token=${accessToken}; Path=/; HttpOnly; SameSite=Strict; Max-Age=360000`,
+        "Set-Cookie": `token=${accessToken}; Path=/; Secure; SameSite=Strict; Max-Age=3600`,
       },
     });
 
@@ -48,7 +52,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function LoginPage() {
   const { register } = useForm();
-  const actionData = useActionData();
+  const actionData = useActionData<ActionData>();
 
   useEffect(() => {
     if (actionData?.error) {

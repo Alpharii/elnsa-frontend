@@ -1,9 +1,9 @@
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   redirect,
+  Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
@@ -54,7 +54,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
-        <LiveReload />
+        <Scripts />
       </body>
     </html>
   );

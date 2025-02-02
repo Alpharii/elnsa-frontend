@@ -4,6 +4,10 @@ import { ActionFunction, json } from "@remix-run/node";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+interface ActionData {
+  error?: string;
+}
+
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const username = formData.get("username");
@@ -42,7 +46,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function RegisterPage() {
   const { register } = useForm();
-  const actionData = useActionData();
+  const actionData = useActionData<ActionData>();
 
   return (
     <div className="min-h-screen flex flex-col justify-center">
